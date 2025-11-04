@@ -357,14 +357,12 @@ footer {
 /* Tableau de monitoring */
 .monitoring-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   margin-top: 2rem;
   font-family: inherit;        /* reprend la police du site */
   color: #333;                 /* couleur du texte du site */
   background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  overflow: hidden;
 }
 
 .monitoring-table thead {
@@ -388,6 +386,7 @@ footer {
   background-color: #e8f0fe;   /* survol */
 }
 
+.monitoring-title,
 .monitoring-table h1 {
   font-size: 1.5em;
   margin-bottom: 1rem;
@@ -397,4 +396,6 @@ footer {
 .table-container {
   overflow-x: auto;
   border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
