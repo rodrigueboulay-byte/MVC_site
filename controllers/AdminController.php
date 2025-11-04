@@ -176,11 +176,16 @@ class AdminController {
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
     }
-
+    /**
+     * Page de Monitoring
+     * @return void
+     */
     public function showMonitoring() : void 
     {
         $this->checkIfUserIsConnected();
+        $articleManager = new ArticleManager;
+        $articles = $articleManager->getAllArticles();
         $view = new View("Monitoring");
-        $view->render("monitoring");
+        $view->render("monitoring", ['articles' => $articles]); 
     }
 }
