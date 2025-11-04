@@ -30,6 +30,24 @@ class ArticleController
         if (!$article) {
             throw new Exception("L'article demandé n'existe pas.");
         }
+        
+        if (!isset($_SESSION['user'])) {
+
+            $_SESSION['viewed_articles'] ??= [];
+            $ttl = 5;
+            $now = time();
+            $already = isset($_SESSION['viewed_articles'][$id]) && ($now - $_SESSION['viewed_articles'][$id]) < $ttl;
+
+            if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET' && !$already) {
+                $articleManager->incrementViews($id);
+                $_SESSION['viewed_articles'][$id] = $now;
+
+                // Met à jour localement pour affichage instantané
+                if (method_exists($article,'getViews') && method_exists($article,'setViews')) {
+                    $article->setViews($article->getViews() + 1);
+                }
+            }
+        }
 
         $commentManager = new CommentManager();
         $comments = $commentManager->getAllCommentsByArticleId($id);

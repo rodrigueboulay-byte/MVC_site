@@ -100,7 +100,8 @@ class ArticleManager extends AbstractEntityManager
      */
     public function incrementViews(int $id): void 
     {
-        $stmt = $this->db->prepare("UPDATE article SET views = views + 1 WHERE id = :id");
+        $pdo = $this->db->getPDO();
+        $stmt = $pdo->prepare("UPDATE article SET views = views + 1 WHERE id = :id");
         $stmt->execute(['id' => $id]);
     }
 }
