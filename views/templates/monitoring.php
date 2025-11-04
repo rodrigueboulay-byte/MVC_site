@@ -3,6 +3,7 @@
      * Affichage de Liste des articles. 
      */
 ?>
+<?php $userManager = new UserManager(); ?>
 
 <h1>📊 Tableau de bord — Articles</h1>
 
@@ -20,10 +21,11 @@
         </thead>
         <tbody>
             <?php foreach ($articles as $article): ?>
+            <?php $user = $userManager->getUserById($article->getIdUser()); ?>
             <tr>
-                <td><?= htmlspecialchars($article->getIdUser()) ?></td>
+                <td><?= $user ? htmlspecialchars($user->getLogin()) : 'Inconnu' ?></td>
                 <td><?= htmlspecialchars($article->getTitle()) ?></td>
-                <td><?= htmlspecialchars($article->getContent()) ?></td>
+                <td><?= htmlspecialchars(mb_substr($article->getContent(), 0, 500)) ?>...</td>
                 <td><?= htmlspecialchars($article->getDateCreation()-> format ('d/m/Y H:i')) ?></td>
                 <td><?= htmlspecialchars($article->getDateUpdate()-> format ('d/m/Y H:i')) ?></td>
                 <td><?= htmlspecialchars($article->getViews()) ?></td>

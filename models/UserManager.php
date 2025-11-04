@@ -7,6 +7,21 @@
 class UserManager extends AbstractEntityManager 
 {
     /**
+     * Récupère un user par son id.
+     * @param int $id
+     * @return ?User
+     */
+    public function getUserById(int $id) : ?User
+    {
+        $sql = "SELECT * FROM user WHERE id = :id";
+        $result = $this->db->query($sql, ['id' => $id]);
+        $user = $result->fetch();
+        if ($user) {
+            return new User($user);
+        }
+        return null;
+    }
+    /**
      * Récupère un user par son login.
      * @param string $login
      * @return ?User
@@ -21,4 +36,5 @@ class UserManager extends AbstractEntityManager
         }
         return null;
     }
+
 }

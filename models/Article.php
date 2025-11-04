@@ -31,6 +31,7 @@
         return $this->idUser;
     }
 
+
     /**
      * Setter pour le titre.
      * @param string $title
