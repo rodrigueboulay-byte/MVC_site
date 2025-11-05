@@ -188,4 +188,52 @@ class AdminController {
         $view = new View("Monitoring");
         $view->render("monitoring", ['articles' => $articles]); 
     }
+    /**
+     * Page de gestion des commentaires d'un article.
+     * URL attendue : index.php?action=editComments&id=123
+     */
+    public function showComments(): void
+    {
+        $this->checkIfUserIsConnected();
+
+        // 1) Récupère l'id d'article
+        $idArticle = (int) Utils::request('id', 0);
+        if ($idArticle <= 0) {
+            throw new Exception("Paramètre 'id' manquant ou invalide.");
+        }
+
+        // 2) Charge l'article (pour le titre, vérif d’existence)
+        $articleManager = new ArticleManager();
+        $article = $articleManager->getArticleById($idArticle);
+        if (!$article) {
+            throw new Exception("Article introuvable.");
+        }
+
+        // 3) Récupère les commentaires
+        $commentManager = new CommentManager();
+        $comments = $commentManager->getAllCommentsByArticleId($idArticle);
+
+        // 4) Affiche la page
+        $view = new View("Commentaires — " . $article->getTitle());
+        $view->render("editComments", [
+            'article'  => $article,
+            'comments' => $comments
+        ]);
+    }
+    
+    public function deleteComment(): void
+    {
+        $this->checkIfUserIsConnected();
+
+        $commentId = (int)($_GET['id'] ?? 0);
+        $articleId = (int)($_GET['article'] ?? 0);
+
+        // on construit juste un Comment avec l'id, puis on appelle ta méthode existante
+        $comment = new Comment(['id' => $commentId]);   // <-- si ton constructeur accepte un tableau
+        (new CommentManager())->deleteComment($comment);
+
+        Utils::redirect('monitoring');
+    }
+
+
 }

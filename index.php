@@ -48,6 +48,11 @@ try {
             $adminController = new AdminController();
             $adminController->showMonitoring();
             break;
+        
+        case 'editComments':
+            $adminController = new AdminController();
+            $adminController->showComments();
+            break;    
 
         case 'connectionForm':
             $adminController = new AdminController();
@@ -77,6 +82,11 @@ try {
         case 'deleteArticle':
             $adminController = new AdminController();
             $adminController->deleteArticle();
+            break;
+
+        case 'deleteComment':
+            $adminController = new AdminController();
+            $adminController->deleteComment();
             break;
 
         default:

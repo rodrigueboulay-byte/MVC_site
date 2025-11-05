@@ -378,12 +378,16 @@ footer {
   border-bottom: 1px solid #ddd;
 }
 
-.monitoring-table tbody tr:nth-child(odd) {
-  background-color: #f7f9fa;   /* ligne impaire */
+.monitoring-table tbody tr:nth-child(odd) > td {
+  background-color: #dcdcdc !important;   /* ligne impaire */
 }
 
-.monitoring-table tbody tr:hover {
-  background-color: #e8f0fe;   /* survol */
+.monitoring-table tbody tr:nth-child(even) > td {
+  background-color: #ffffff !important;   /* ligne paire */
+}
+
+.monitoring-table tbody tr:hover > td {
+  background-color: #cedffb !important;   /* survol */
 }
 
 .monitoring-title,
